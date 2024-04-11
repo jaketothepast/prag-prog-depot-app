@@ -13,7 +13,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "@product price is positive, more than 0.01" do
-    product = Product.new(title: "title", description: "description", image_url: "hello.jpg")
+    product = Product.new(title: "This is a title longer than 10", description: "description", image_url: "hello.jpg")
     product.price = -1
     error_message = "must be greater than or equal to 0.01"
     assert product.invalid?
@@ -22,13 +22,14 @@ class ProductTest < ActiveSupport::TestCase
     product.price = 0
     assert product.invalid?
     assert_equal [error_message], product.errors[:price]
+    debugger
 
     product.price = 1
     assert product.valid?
   end
 
   def new_product(image_url)
-    Product.new(title: "Product",
+    Product.new(title: "Product Is Product",
                 description: "Description",
                 price: 1,
                 image_url: image_url)
