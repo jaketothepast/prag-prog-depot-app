@@ -22,7 +22,6 @@ class ProductTest < ActiveSupport::TestCase
     product.price = 0
     assert product.invalid?
     assert_equal [error_message], product.errors[:price]
-    debugger
 
     product.price = 1
     assert product.valid?

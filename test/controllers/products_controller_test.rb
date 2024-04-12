@@ -46,4 +46,12 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to products_url
   end
+
+
+  # Functional test, will render the page and check that everything is there.
+  test "renders products page correctly" do
+    get products_url
+    assert_response :success
+    assert_select '#products tbody a', 3 * Product.count
+  end
 end
