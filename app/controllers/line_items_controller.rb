@@ -3,7 +3,7 @@ class LineItemsController < ApplicationController
   include SessionCounter
 
   before_action :set_cart, only: %i[ create ]
-  before_action :set_line_item, only: %i[ show edit update destroy ]
+  before_action :set_line_item, only: %i[ show edit update destroy, decrement ]
   after_action :clear_session_count, only: %i[ create ]
 
   # GET /line_items or /line_items.json
@@ -40,6 +40,21 @@ class LineItemsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # POST /line_items/1/decrement
+  def decrement
+    # Decrement the line item count.
+    @line_item.quantity -= 1
+    if @line_item.quantity <= 0
+      @line_item.destroy
+    else
+      @line_item.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to store_index_url, notice: 'Decremented line item'}
     end
   end
 
