@@ -1,5 +1,8 @@
 class StoreController < ApplicationController
   include SessionCounter
+  include CurrentCart
+
+  before_action :set_cart
 
   before_action :session_count, only: %i[ index ]
 
