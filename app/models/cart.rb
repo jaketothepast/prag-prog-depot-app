@@ -15,8 +15,4 @@ class Cart < ApplicationRecord
   def total_price
     line_items.sum { |item| item.total_price }
   end
-
-  def find_line_item(product)
-    line_items.find_by(product: product)
-  end
 end

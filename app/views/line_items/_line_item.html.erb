@@ -12,6 +12,6 @@
     <%= number_to_currency(line_item.total_price) %>
   </td>
   <td class="text-right">
-    <%= button_to 'Remove', decrement_line_item_path(id: line_item.id, product_id: line_item.product.id), method: :post, class: 'mt-2 rounded-lg py-3 px-6 bg-gray-500 font-medium' %>
+    <%= button_to 'Remove', [:decrement, line_item], method: :post, class: 'mt-2 rounded-lg py-3 px-6 bg-gray-500 font-medium' %>
   </td>
 </tr>
