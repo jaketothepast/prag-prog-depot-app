@@ -11,7 +11,4 @@
   <td class="text-right font-bold">
     <%= number_to_currency(line_item.total_price) %>
   </td>
-  <td class="text-right">
-    <%= button_to 'Remove', [:decrement, line_item], method: :post, class: 'mt-2 rounded-lg py-3 px-6 bg-gray-500 font-medium' %>
-  </td>
 </tr>
