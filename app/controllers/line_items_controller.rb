@@ -2,7 +2,7 @@ class LineItemsController < ApplicationController
   include CurrentCart
   include SessionCounter
 
-  before_action :set_cart, only: %i[ create ]
+  before_action :set_cart, only: %i[ create, decrement ]
   before_action :set_line_item, only: %i[ show edit update destroy, decrement ]
   after_action :clear_session_count, only: %i[ create ]
 
@@ -43,16 +43,24 @@ class LineItemsController < ApplicationController
     end
   end
 
-  # POST /line_items/1/decrement
+  # POST /line_items/decrement
   def decrement
-    # Decrement the line item count.
+    # Get the product
+    product = Product.find(params[:product_id])
+
+    # Find the line item in the cart
+    @line_item = @cart.find_line_item(product)
+
+    # Update the line item
     @line_item.quantity -= 1
     @line_item.save
     if @line_item.quantity <= 0
       @line_item.destroy
     end
 
+    # Respond
     respond_to do |format|
+      format.turbo_stream
       format.html { redirect_to store_index_url, notice: 'Decremented line item'}
     end
   end
