@@ -47,10 +47,9 @@ class LineItemsController < ApplicationController
   def decrement
     # Decrement the line item count.
     @line_item.quantity -= 1
+    @line_item.save
     if @line_item.quantity <= 0
       @line_item.destroy
-    else
-      @line_item.save
     end
 
     respond_to do |format|
