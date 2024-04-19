@@ -3,7 +3,7 @@ class LineItemsController < ApplicationController
   include SessionCounter
 
   before_action :set_cart, only: %i[ create ]
-  before_action :set_line_item, only: %i[ show edit update destroy, decrement ]
+  before_action :set_line_item, only: %i[ show edit update destroy decrement ]
   after_action :clear_session_count, only: %i[ create ]
 
   # GET /line_items or /line_items.json
